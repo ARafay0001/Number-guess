@@ -1,45 +1,43 @@
-const submit = document.querySelector(".submit");
-const newGame = document.querySelector(".new");
-const notify = document.querySelector("h3");
-const yourGuesses = document.querySelector(".yourGuesses");
 function gen() {
-    let arry = []
-    let guesses = 10;
-    const random = Math.floor(Math.random() * 99 + 1);
-    
-    submit.addEventListener("click", () => {
-        const inputvalue =  document.querySelector("input").value
-        if (inputvalue !== "") {
-            console.log("click")
-            const input = parseInt(inputvalue)
-            guesses = guesses - 1;
-            document.querySelector("input").value = "";
-            document.querySelector(".remaining").textContent = guesses
+    document.querySelector(".result").classList.add("disable")
+    const randomNumber = Math.floor(Math.random() * 100 + 1);
+    console.log("random number:", randomNumber);
+    let inputArry = []
+    let guessLeft = 10;
+    //clicking on submit
+    document.querySelector(".submit").addEventListener("click", () => {
+        const inputvalue =  parseInt(document.querySelector("input").value);
+        console.log("input value", inputvalue)
+        if (inputvalue) {
+            
             document.querySelector(".result").classList.remove("disable")
-            arry.push(input);
-            if (input < random) {
-                notify.textContent = `${input} is too low!`
-            } else if (input > random) {
-                notify.textContent = `${input} is too high!`
-            } else if (input == random) {
-                notify.textContent = `You got in ${guesses}`
-            } else {
-                document.querySelector("input").placeholder = "Enter a number before submit"
+            if (inputvalue < randomNumber) {
+                document.querySelector("h3").textContent = `${inputvalue} is too low`
+            } else if (inputvalue > randomNumber) {
+                document.querySelector("h3").textContent = `${inputvalue} is too high`
+            } else if (inputvalue == randomNumber) {
+                document.querySelector("h3").textContent = `${inputvalue} is correct`
+                document.querySelector(".submit").disabled = true;
+            } 
+            inputArry.push(inputvalue)
+            document.querySelector(".yourGuesses").textContent = inputArry
+            guessLeft = guessLeft - 1
+            if (guessLeft == 0) {
+                document.querySelector(".submit").disabled = true;
+                document.querySelector("h3").textContent = `Game Over you have 0 guess left`         
             }
-            yourGuesses.textContent = arry
-            if (guesses == 1){
-                notify.textContent = `Game Over no more guesses left!`
-            submit.disabled = ture 
-            newGame.disabled = false     
+            console.log("guess left", guessLeft)
+            document.querySelector(".remaining").textContent = guessLeft;
+            document.querySelector("input").value = ""
         }
-        }
-    })
-    
-    newGame.addEventListener("click", () => {
+    } )
+    //clicking new 
+    document.querySelector(".new").addEventListener("click", () => {
+        document.querySelector(".submit").disabled = false;
+        console.log("click");
+        document.querySelector(".remaining").textContent = 10;
+        document.querySelector("input").value = ""
         gen()
-        submit.disabled = false 
-        newGame.disabled = true
     })
-    
 }
 gen()
