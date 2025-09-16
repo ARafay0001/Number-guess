@@ -12,15 +12,17 @@
     <main>
         <p>I'm thinking of a number between 0 and 100. Can you guess it?</p>
         <p>You have <span class="remaining">10</span> guesses remaining</p>
-        <div class="inputField">
-            <label for="input">Your guess 0-100</label>
-            <input type="number" id="input" min="1" max="100" placeholder="Enter a number">
+        <form action="">
+            <div class="inputField">
+            <label for="input" >Your guess 0-100</label>
+            <input type="number" id="input" min="1" max="100" placeholder="Enter a number" required>
             <div>Enter a number between 0 and 100</div>
         </div>
         <div class="keys">
-            <button class="submit">Submit Guess</button>
+            <button type="submit" class="submit">Submit Guess</button>
             <button class="new">New Game</button>
         </div>
+        </form>
         <div  class="resultContainer" >
             <div  class="result ">
             <h3></h3>
